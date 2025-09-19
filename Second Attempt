@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int romanToInt(string s) {
+        /*
+        was thinking an enum would be good but map is better
+        enum LV {
+            I = 1, V = 5, X = 5,L=50 , C=100 ,D=500 ,M=1000
+        }*/
+        map<char, int> LV = {
+            {'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000} // ...
+        };
+        //main declaration and itilization of values and nums is short for numbers
+        int nums=0;
+        int j=0;
+        //looping throught the string
+        while(j<s.size()){
+            //while not being the end of the string check if next num is bigger than current
+            if(j+1!=s.size()&&(LV[s[j]]<LV[s[j+1]])){
+                //subtract the current number from next then add the total to nums and skip 2
+                nums+=(LV[s[j+1]]-LV[s[j]]);
+                j=j+2;
+            }
+            else{
+                // add the current number to nums
+                nums += LV[s[j]];
+                j++;
+            }
+            
+        }
+        return nums;
+    }
+};
