@@ -1,0 +1,37 @@
+/*
+Runtime 9 ms
+Beats 5.09%
+
+Memory 45.44 MB
+Beats 6.11%
+Not the best time, there can still be improvements, I think mainly with my math and retrieval
+*/
+import java.util.HashMap;
+import java.util.Map;
+class Solution {
+    public int romanToInt(String s) {
+        //this makes a HashMap with the necessary values to retrieve faster
+        Map<Character, Integer> LV = new HashMap <> ( Map.of(
+            'I', 1 , 'V', 5, 'X', 10, 'L', 50, 'C', 100, 'D', 500,  'M',  
+            1000)
+        );
+        int nums=0;
+        int j=0;
+        //this loop runs through all length of the string, comparing characters
+        
+        while(j<s.length()){
+            // if the next one is bigger or smaller, if bigger than it subtracts and skips 2
+            if( j+1!=s.length() && (LV.get(s.charAt(j)) < LV.get( s.charAt(j+1))) ){
+                nums+=( LV.get( s.charAt(j+1) ) - LV.get( s.charAt(j) ) );
+                j=j+2;
+            }
+            // if the number is the same size or smaller than just add the number and continue
+            else{
+                nums += LV.get(s.charAt(j));
+                j++;
+            }
+            
+        }
+        return nums;
+    }
+}
